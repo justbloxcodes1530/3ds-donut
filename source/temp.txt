@@ -1,0 +1,35 @@
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <3ds.h>
+
+int main(int argc, char **argv)
+{
+	// Initialize services
+	aptInit();
+	gfxInitDefault();
+	consoleInit(GFX_BOTTOM, NULL);
+	hidInit();
+	
+	printf("3DS-Donut\n");
+	//Flushes the buffer
+	gfxFlushBuffers();
+	gfxSwapBuffers();
+	
+	while(aptMainLoop()) //Always have the main code loop in here
+	{
+		hidScanInput(); //Checks which keys are pressed
+
+		u32 button = hidKeysDown(); // Checks which keys are up and which ones are down
+
+		if(button & KEY_START) break; // Keep so users can exit
+
+		// Insert cool donut code here
+	}
+
+	// Exit services
+	aptExit();
+	gfxExit();
+	hidExit();
+	return 0;
+}
